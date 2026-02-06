@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hi Tharun Kumar 💗</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background: radial-gradient(circle,#ffd6ea,#ff9ecf);
+  font-family: "Poppins", Arial, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* Floating hearts background */
+.heart{
+  position:fixed;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  opacity:0.4;
+}
+@keyframes float{
+  from{transform:translateY(110vh);}
+  to{transform:translateY(-10vh);}
+}
+
+.card{
+  background:#fff0f8;
+  border:3px solid #ff4da6;
+  border-radius:25px;
+  padding:25px;
+  width:360px;
+  text-align:center;
+  z-index:10;
+  box-shadow:0 25px 60px rgba(255,77,166,0.4);
+}
+
+h1{color:#cc0066;}
+p{color:#99004d;}
+
+button{
+  padding:12px 18px;
+  border:none;
+  border-radius:18px;
+  font-size:16px;
+  cursor:pointer;
+  margin:6px;
+}
+
+.yes{
+  background:#ff4da6;
+  color:white;
+}
+.no{
+  background:#ffd1e8;
+  color:#cc0066;
+  position:absolute;
+}
+
+.options button{
+  background:#ffe0f0;
+  border:2px solid #ff4da6;
+  color:#cc0066;
+}
+
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="card">
+  <h1 id="title">Hi Tharun Kumar 💖</h1>
+  <p id="text">Start click 👇</p>
+
+  <div id="buttons">
+    <button class="yes" onclick="next()">Start</button>
+  </div>
+
+  <button class="no hidden" id="noBtn">No 🙈</button>
+</div>
+
+<script>
+/* background floating hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML=["💖","💗","💕","💘"][Math.floor(Math.random()*4)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},400);
+
+let step=0;
+const title=document.getElementById("title");
+const text=document.getElementById("text");
+const buttons=document.getElementById("buttons");
+const noBtn=document.getElementById("noBtn");
+
+function next(){
+  step++;
+
+  /* Question 1 */
+  if(step===1){
+    title.innerHTML="Do you love me? 💕";
+    text.innerHTML="Be honest 😌";
+    buttons.innerHTML=`<button class="yes" onclick="next()">Yes 😍</button>`;
+    noBtn.classList.remove("hidden");
+    moveNo();
+  }
+
+  /* Question 2 */
+  else if(step===2){
+    noBtn.classList.add("hidden");
+    popup("🥰💖","That made me smile so big!");
+    title.innerHTML="What do you love most in me? 💗";
+    text.innerHTML="";
+    buttons.innerHTML=`
+      <div class="options">
+        <button onclick="next()">Hair 💇‍♀️</button>
+        <button onclick="next()">Eyes 👀</button>
+        <button onclick="next()">Smile 😊</button>
+      </div>`;
+  }
+
+  /* Question 3 */
+  else if(step===3){
+    popup("🥹💕","Awww so sweet of you!");
+    title.innerHTML="I have a surprise for you 🎁";
+    text.innerHTML="Click enter 👇";
+    buttons.innerHTML=`<button class="yes" onclick="next()">Enter ✨</button>`;
+  }
+
+  /* Final question */
+  else if(step===4){
+    title.innerHTML="Will you be my Valentine forever? 💐";
+    text.innerHTML="";
+    buttons.innerHTML=`<button class="yes" onclick="final()">YES 💖</button>`;
+  }
+}
+
+function final(){
+  popup(
+    "💐💖💐",
+    "Thanks Tharun 💖\n\nYou truly made Vara’s day so happy 🥹✨\nShe loves you a lot, today and always 💕🌸"
+  );
+}
+
+/* NO button runs away */
+function moveNo(){
+  noBtn.onmouseover=()=>{
+    noBtn.style.left=Math.random()*250+"px";
+    noBtn.style.top=Math.random()*200+"px";
+  }
+}
+
+/* Popup */
+function popup(emoji,msg){
+  alert(emoji+"\n\n"+msg);
+}
+</script>
+
+</body>
+</html>
